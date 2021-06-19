@@ -31,6 +31,7 @@ public class CartServiceController {
 	@Autowired
 	private ICartSService cartService;
 	
+	//Returns all the items present in the cart
 	@GetMapping("/getallitems")
 	public ResponseEntity<List<?>> getAllItems(@RequestHeader String userToken) {
 		log.info("Get All Items From Cart");
@@ -38,15 +39,17 @@ public class CartServiceController {
 		return new ResponseEntity<List<?>>(response, HttpStatus.OK);
 	}
 	
+	//Adds a new item into the cart
 	@PostMapping("/addtocart")
 	public ResponseEntity<Response> addToCart(@RequestHeader String userToken,
 											  @RequestHeader int bookId,
-											  @RequestBody CartServiceDTO cartDTO) {
+										  @RequestBody CartServiceDTO cartDTO) {
 		log.info("Add To Cart");
 		Response response = cartService.addToCart(userToken,bookId,cartDTO);
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 	
+	//Updates an existing item in the cart
 	@PutMapping("/updatecart/{cartId}")
 	public ResponseEntity<Response> updateCart(@PathVariable int cartId,
 											   @RequestBody CartServiceDTO cartDTO,
@@ -56,6 +59,7 @@ public class CartServiceController {
 		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 		
+	//Removes an item from the cart
 	@DeleteMapping("/removefromcart")
 	public ResponseEntity<Response> removeFromCart(@RequestParam int cartId,
 											   	   @RequestHeader String userToken) {
