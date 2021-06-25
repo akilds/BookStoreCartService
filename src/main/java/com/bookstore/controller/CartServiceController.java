@@ -39,6 +39,14 @@ public class CartServiceController {
 		return new ResponseEntity<List<?>>(response, HttpStatus.OK);
 	}
 	
+	//Returns all order data of an user
+	@GetMapping("/getallordersforuser")
+	public ResponseEntity<List<?>> getAllOrdersForUser(@RequestHeader String userToken) {
+		log.info("Get All Orders For User");
+		List<CartServiceData> response = cartService.getAllOrdersForUser(userToken);
+		return new ResponseEntity<List<?>>(response, HttpStatus.OK);
+	}
+	
 	//Adds a new item into the cart
 	@PostMapping("/addtocart")
 	public ResponseEntity<Response> addToCart(@RequestHeader String userToken,

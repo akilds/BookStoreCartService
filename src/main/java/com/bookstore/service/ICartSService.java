@@ -16,4 +16,6 @@ public interface ICartSService {
 
 	Response removeFromCart(int cartId, String userToken);
 
+	List<CartServiceData> getAllOrdersForUser(String userToken);
+
 }

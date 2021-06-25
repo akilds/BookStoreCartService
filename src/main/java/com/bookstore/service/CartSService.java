@@ -51,6 +51,22 @@ public class CartSService implements ICartSService{
 		}	
 	}
 
+	//Returns all the orders for user
+	@Override
+	public List<CartServiceData> getAllOrdersForUser(String userToken) {
+		int userId = tokenUtil.decodeToken(userToken);
+		String uri = "http://bookstore-user/user/verifyuserid/" + userId;
+		boolean isIdPresent = restTemplate.getForObject(uri, Boolean.class);
+		if(isIdPresent) {
+			log.info("Get All Orders For User");
+			List<CartServiceData> getAllNotes = cartRepository.findAllByUserId(userId);
+			return getAllNotes;
+		}else {
+			log.error("User Is Not Present");
+			throw new CartServiceException(400, "User Is Not Present");			
+		}	
+	}
+	
 	//Adds a new item to the cart
 	@Override
 	public Response addToCart(String userToken, int bookId, CartServiceDTO cartDTO) {
